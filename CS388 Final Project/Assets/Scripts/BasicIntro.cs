@@ -23,6 +23,12 @@ public class BasicIntro : MonoBehaviour
     public GameObject ChopButton;
     SavedObject selected_object;
     Vector3Int selected_position;
+
+    // For Buildings
+    bool build = false;
+    enum buildingType { House }
+    buildingType buildThis;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -148,6 +154,12 @@ public class BasicIntro : MonoBehaviour
                             if (environment.grid[selected_position.x, selected_position.z].GetName() == "Grass")
                                 PlantButton.SetActive(true);
                         }
+
+                        // For buildings
+                        if(build)
+                        {
+                            BuildABuilding();
+                        }
                     }
                     else
                     {
@@ -203,6 +215,25 @@ public class BasicIntro : MonoBehaviour
         selected_position = new Vector3Int(-1, -1, -1);
         selection_text.text = "";
         PlantButton.SetActive(false);
+    }
+
+    public void Building1()
+    {
+        build = true;
+        buildThis = buildingType.House;
+    }
+
+    public void BuildABuilding()
+    {
+        if(buildThis == buildingType.House)
+        {
+            Spawner.SpawnStructure(selected_position.x, selected_position.z, "Structure", 0, environment.grid[selected_position.x, selected_position.z].position, true);
+            selected_object = null;
+            selected_position = new Vector3Int(-1, -1, -1);
+            selection_text.text = "";
+            PlantButton.SetActive(false);
+        }
+        build = false;
     }
 
     public void LoadScene(int scene_num)

@@ -56,9 +56,9 @@ public class BuildingsMenu : MonoBehaviour
         if (t >= 1)
         {
             lerpMenu = false;
-            menuBackground.position = new Vector3(menuBackground.position.x, endPos, menuBackground.position.z);
+            menuBackground.anchoredPosition3D = new Vector3(endPos, menuBackground.anchoredPosition3D.y, menuBackground.anchoredPosition3D.z);
             return;
         }
-        menuBackground.position = new Vector3(menuBackground.position.x, Mathf.Lerp(startPos, endPos, t), menuBackground.position.z);
+        menuBackground.anchoredPosition = new Vector3(Mathf.Lerp(startPos, endPos, t), menuBackground.anchoredPosition3D.y, menuBackground.anchoredPosition3D.z);
     }
 }
