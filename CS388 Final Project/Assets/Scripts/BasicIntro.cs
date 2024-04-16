@@ -219,6 +219,11 @@ public class BasicIntro : MonoBehaviour
 
     public void Building1()
     {
+        if(build == true && buildThis == buildingType.House)
+        {
+            build = false;
+        }
+
         build = true;
         buildThis = buildingType.House;
     }
@@ -227,7 +232,7 @@ public class BasicIntro : MonoBehaviour
     {
         if(buildThis == buildingType.House)
         {
-            Spawner.SpawnStructure(selected_position.x, selected_position.z, "Structure", 0, environment.grid[selected_position.x, selected_position.z].position, true);
+            Spawner.SpawnStructure(selected_position.x, selected_position.z, "Building1", 0, environment.grid[selected_position.x, selected_position.z].position, true);
             selected_object = null;
             selected_position = new Vector3Int(-1, -1, -1);
             selection_text.text = "";
