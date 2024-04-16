@@ -68,8 +68,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   phase0: {fileID: 6677569308813484022}
-  phase1: {fileID: 3057157167078911272}
-  phase2: {fileID: 4904259354231743990}
+  phases:
+  - {fileID: 3057157167078911272}
+  - {fileID: 4904259354231743990}
   text: {fileID: 2216222737219044682}
   timeToBuild: 15
 --- !u!1 &2215849470670314959

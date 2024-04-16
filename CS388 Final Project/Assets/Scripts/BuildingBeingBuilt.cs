@@ -1,38 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class BuildingBeingBuilt : MonoBehaviour
 {
-    public GameObject phase0, phase1, phase2;
+    public GameObject phase0;
+    public GameObject[] phases;
     public GameObject text;
     public float timeToBuild;
     float t;
+    bool built = false;
 
     // Start is called before the first frame update
     void Start()
     {
         t = 0;
-        phase1.SetActive(false);
-        phase2.SetActive(false);
+        for(int i = 0; i < phases.Length;i++)
+        {
+            phases[i].SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        t += Time.deltaTime;
-
-        if(t > timeToBuild / 2)
+        if(!built)
         {
-            phase1.SetActive(true);
+            Build();
         }
-        if(t > timeToBuild)
+    }
+
+    void Build()
+    {
+        t += Time.deltaTime;
+        if (t > timeToBuild)
         {
-            phase2.SetActive(true);
+            for (int i = 0; i < phases.Length; i++)
+            {
+                phases[i].SetActive(true);
+            }
             phase0.SetActive(false);
             text.SetActive(false);
+            built = true;
             return;
+        }
+
+        for (int i = 0; i < phases.Length; i++)
+        {
+            if (t > timeToBuild * (i + 1) / phases.Length)
+            {
+                phases[i].SetActive(true);
+            }
+
         }
 
 
