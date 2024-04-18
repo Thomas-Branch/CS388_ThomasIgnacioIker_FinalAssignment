@@ -105,6 +105,8 @@ public class GridEnvironment : MonoBehaviour
         {
             for (int i = 0; i < data.world_data.Length; i = i + 4)
                 Spawner.SpawnStructure(data.world_data[i], data.world_data[i + 1], data.world_data[i + 2], data.world_data[i + 3], grid[data.world_data[i], data.world_data[i + 1]].position, true);
+            for (int i = 0; i < data.event_positions.Length; i = i + 2)
+                Spawner.SpawnEvent(data.event_times[i], data.event_times[i + 1], data.event_positions[i], data.event_positions[i + 1]);
         }
         else
         {
@@ -120,6 +122,7 @@ public class GridEnvironment : MonoBehaviour
                         Spawner.SpawnStructure(x, y, "Tree", 0, grid[x, y].position, true);
                 }
             }
+            Spawner.SpawnEvent(1000, 0, 0);
         }
 
     }

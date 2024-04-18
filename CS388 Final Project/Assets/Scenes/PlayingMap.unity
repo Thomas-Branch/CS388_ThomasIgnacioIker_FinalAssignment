@@ -943,6 +943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b50273e4f8eefa40a649bfc7b6ce9c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventPrefab: {fileID: 36116099605426412, guid: 2114f239d20f0bd4f82b9949eec97db7, type: 3}
   structures:
   - {fileID: 4006321286853432930, guid: 0e989f3df58a227419e61cfa49655a23, type: 3}
   - {fileID: 1418433199594727245, guid: f3a88b90c6cb5564b950dcf7a77b6f35, type: 3}

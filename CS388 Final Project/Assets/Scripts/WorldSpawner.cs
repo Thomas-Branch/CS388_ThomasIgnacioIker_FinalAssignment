@@ -6,11 +6,13 @@ using static SavedObject;
 
 public class WorldSpawner : MonoBehaviour
 {
+    public GameObject eventPrefab;
     public GameObject[] structures;
     public bool[,] Occupation;
     GridEnvironment environment = null;
     public bool occupied = false;
     // Start is called before the first frame update
+
     void Start()
     {
     }
@@ -21,13 +23,29 @@ public class WorldSpawner : MonoBehaviour
         
     }
 
+    const long SECOND_VALUE = 10000000;
+    public void SpawnEvent(long seconds, int x_pos, int y_pos)
+    {
+        long start = System.DateTime.UtcNow.ToBinary();
+        long finish = start + seconds * SECOND_VALUE;
+        SpawnEvent(start, finish, x_pos, y_pos);
+    }
+
+    public void SpawnEvent(long start, long finish, int x_pos, int y_pos)
+    {
+        Vector3 position = environment.grid[x_pos, y_pos].position;
+        GameObject obj = Instantiate(eventPrefab, position, Quaternion.identity, transform);
+        TimedEvent Tevent = obj.GetComponent<TimedEvent>();
+        Tevent.SetFinishTime(start, finish, x_pos, y_pos);
+    }
+
     public void CreateOccupationGrid(int size)
     {
         environment = FindObjectOfType<GridEnvironment>();
         Occupation = new bool[size, size];
     }
 
-    SavedObject FindOccupier(int x, int y)
+    public SavedObject FindOccupier(int x, int y)
     {
         occupied = true;
         SavedObject[] Objects = GameObject.FindObjectsOfType<SavedObject>();

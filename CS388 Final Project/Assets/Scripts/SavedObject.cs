@@ -12,7 +12,7 @@ public class SavedObject : MonoBehaviour
     public int y = 0;
     public int ID = 0;
     public int extra = 0;
-
+    public bool event_happened = false;
     // Start is called before the first frame update
     void Start()
     {
