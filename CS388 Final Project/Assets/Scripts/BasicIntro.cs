@@ -15,6 +15,7 @@ public class BasicIntro : MonoBehaviour
     float distance = 1.0f;
     GridEnvironment environment = null;
     WorldSpawner Spawner = null;
+    public Inventory inventory;
     Vector2 swipeSize;
     public ModeSwitch mode;
 
@@ -207,6 +208,10 @@ public class BasicIntro : MonoBehaviour
         selected_position = new Vector3Int(-1, -1, -1);
         selection_text.text = "";
         ChopButton.SetActive(false);
+
+        // Add wood to inventory
+        inventory.AddResource(Inventory.ResourceType.Wood, 5);
+
     }
     public void Plant()
     {
@@ -219,6 +224,12 @@ public class BasicIntro : MonoBehaviour
 
     public void Building1()
     {
+        // Check if enough resources
+        if(inventory.ConsumeResource(new Inventory.ResourceType[]{ Inventory.ResourceType.Wood}, new int[] { 1 }) == false)
+        {
+            return;
+        }
+
         if(build == true && buildThis == buildingType.House)
         {
             build = false;
