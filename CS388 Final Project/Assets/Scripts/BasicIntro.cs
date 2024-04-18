@@ -232,7 +232,7 @@ public class BasicIntro : MonoBehaviour
     {
         if(buildThis == buildingType.House)
         {
-            Spawner.SpawnStructure(selected_position.x, selected_position.z, "Building1", 0, environment.grid[selected_position.x, selected_position.z].position, true);
+            Spawner.SpawnStructure(selected_position.x, selected_position.z, "Building1", 0, environment.grid[selected_position.x, selected_position.z].position, false);
             selected_object = null;
             selected_position = new Vector3Int(-1, -1, -1);
             selection_text.text = "";

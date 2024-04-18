@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static SavedObject;
 
 public class WorldSpawner : MonoBehaviour
 {
     public GameObject[] structures;
     public bool[,] Occupation;
     GridEnvironment environment = null;
+    public bool occupied = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,17 +29,36 @@ public class WorldSpawner : MonoBehaviour
 
     SavedObject FindOccupier(int x, int y)
     {
+        occupied = true;
         SavedObject[] Objects = GameObject.FindObjectsOfType<SavedObject>();
         for (int i = 0; i < Objects.Length; i++)
         {
-            if (Objects[i].x == x && Objects[i].y == y)
-                return Objects[i];
+            switch (Objects[i].shape)
+            {
+                case SavedObject.Shape.Single:
+                    if (Objects[i].x == x && Objects[i].y == y)
+                        return Objects[i];
+                    break;
+                case SavedObject.Shape.Square:
+                    for (int k = x - 1; k <= x + 1; k++)
+                    {
+                        for (int j = y - 1; j <= y + 1; j++)
+                        {
+                            if(Objects[i].x == k && Objects[i].y == j)
+                                return Objects[i];
+                        }
+                    }
+                    break;
+            }
         }
+        occupied = false;
         return null;
     }
 
     public SavedObject CheckValidOccupation(int x, int y, SavedObject.Shape shape)
     {
+        occupied = false;
+
         switch(shape)
         {
             case SavedObject.Shape.Single:
@@ -44,6 +66,23 @@ public class WorldSpawner : MonoBehaviour
                     return null;
                 else
                     return FindOccupier(x, y);
+            case SavedObject.Shape.Square:
+                float height= environment.grid[x,y].GetHeight();
+                
+                for (int i = x - 1; i <= x + 1; i++)
+                {
+                    for(int j = y - 1; j <= y + 1; j++)
+                    {
+                        if (i < 0 || j < 0 || i >= environment.size || j >= environment.size || environment.grid[i, j].GetHeight() != height)
+                        {
+                            occupied = true;
+                            return null;
+                        }
+                        if (Occupation[i, j] == true)
+                            return FindOccupier(i, j);
+                    }
+                }
+                return null;
         }
         return null;
     }
@@ -66,6 +105,16 @@ public class WorldSpawner : MonoBehaviour
             case SavedObject.Shape.Single:
                 Occupation[data.x, data.y] = true;
                 break;
+            case SavedObject.Shape.Square:
+
+                for (int i = data.x - 1; i <= data.x + 1; i++)
+                {
+                    for (int j = data.y - 1; j <= data.y + 1; j++)
+                    {
+                        Occupation[i, j] = true;
+                    }
+                }
+                break;
         }
     }
 
@@ -85,7 +134,7 @@ public class WorldSpawner : MonoBehaviour
         if (!loading_save)
         {
             SavedObject Occupying = CheckValidOccupation(x, y, shape);
-            if (Occupying == null)
+            if (occupied == false)
             {
                 GameObject obj = Instantiate(structures[ID], position, Quaternion.identity, transform);
                 SavedObject data = obj.GetComponent<SavedObject>();
