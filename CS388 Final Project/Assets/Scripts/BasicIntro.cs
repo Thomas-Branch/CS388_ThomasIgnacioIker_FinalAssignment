@@ -203,14 +203,15 @@ public class BasicIntro : MonoBehaviour
 
     public void Chop()
     {
-        Spawner.DestroyStructure(selected_object);
-        selected_object = null;
-        selected_position = new Vector3Int(-1, -1, -1);
-        selection_text.text = "";
-        ChopButton.SetActive(false);
-
-        // Add wood to inventory
-        inventory.AddResource(Inventory.ResourceType.Wood, 5);
+        if (inventory.CheckResourceAmount(Inventory.ResourceType.Fellas) >= 2)
+        {
+            inventory.AddResource(Inventory.ResourceType.Fellas, -2);
+            Spawner.SpawnEvent(30, selected_position.x, selected_position.z);
+            selected_object = null;
+            selected_position = new Vector3Int(-1, -1, -1);
+            selection_text.text = "";
+            ChopButton.SetActive(false);
+        }
 
     }
     public void Plant()

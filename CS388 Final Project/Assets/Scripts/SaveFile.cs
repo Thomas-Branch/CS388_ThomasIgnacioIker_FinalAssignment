@@ -12,6 +12,7 @@ public class SaveFile
     public char[] event_positions;
     public long[] event_times;
 
+    public int[] inventory;
     public SaveFile(GridEnvironment environment)
     {
         size = (char)environment.size;
@@ -37,5 +38,10 @@ public class SaveFile
             event_times[i * 2] = events[i].start_time;
             event_times[i * 2 + 1] = events[i].finish_time;
         }
+
+        Inventory inv = GameObject.FindObjectOfType<Inventory>();
+        inventory = new int[(int)Inventory.ResourceType.Length];
+        for (int i = 0; i < inventory.Length; i++)
+            inventory[i] = inv.inventory[i];
     }
 }

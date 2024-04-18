@@ -1128,13 +1128,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22ab5bda59685a45bcfeddcf939c48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: 000000000000000000000000000000000000000000000000
   itemUI:
-  - {fileID: 709293421}
-  - {fileID: 1607898405}
-  - {fileID: 856607956}
-  - {fileID: 2029583293}
-  - {fileID: 1377107500}
-  - {fileID: 296723307}
+  - {fileID: 709293423}
+  - {fileID: 1607898407}
+  - {fileID: 856607958}
+  - {fileID: 2029583295}
+  - {fileID: 1377107502}
+  - {fileID: 296723309}
 --- !u!4 &721477671
 Transform:
   m_ObjectHideFlags: 0

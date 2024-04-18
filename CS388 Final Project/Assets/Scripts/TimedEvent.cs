@@ -18,31 +18,42 @@ public class TimedEvent : MonoBehaviour
     }
     const long SECOND_VALUE = 10000000;
     // Update is called once per frame
+
+    long UpdateTime()
+    {
+        long value = (finish_time - System.DateTime.UtcNow.ToBinary()) / SECOND_VALUE + 1;
+        long seconds = value % 60;
+        long minutes = (value / 60) % 60;
+        long hours = (value / 60) / 60;
+        string stringText;
+        if (hours > 0)
+            stringText = "" + hours + " h " + minutes + " m " + seconds + " s";
+        else if (minutes > 0)
+            stringText = "" + minutes + " m " + seconds + " s";
+        else
+            stringText = "" + seconds + " s";
+        text.text = stringText;
+        return value;
+    }
+
+    void CheckFinished(long value)
+    {
+        if (value < 0)
+        {
+            WorldSpawner spawner = FindObjectOfType<WorldSpawner>();
+            SavedObject obj = spawner.FindOccupier(x, y);
+            if (obj)
+                obj.event_happened = true;
+            Destroy(gameObject);
+        }
+    }
+
     void Update()
     {
         timer += Time.deltaTime;
         if (timer > 1.0f)
         {
-            long value = (finish_time - System.DateTime.UtcNow.ToBinary()) / SECOND_VALUE;
-            long seconds = value % 60;
-            long minutes = (value / 60) % 60;
-            long hours = (value / 60) / 60;
-            string stringText;
-            if(hours > 0)
-                stringText = "" + hours + " h " + minutes + " m " + seconds + " s";
-            else if(minutes > 0)
-                stringText = "" + minutes + " m " + seconds + " s";
-            else
-                stringText = "" + seconds + " s";
-            text.text = stringText;
-            if (value < 0)
-            {
-                WorldSpawner spawner = FindObjectOfType<WorldSpawner>();
-                SavedObject obj = spawner.FindOccupier(x, y);
-                if (obj)
-                    obj.event_happened = true;
-                Destroy(gameObject);
-            }
+            CheckFinished(UpdateTime());
             timer -= 1.0f;
         }
 
@@ -61,6 +72,6 @@ public class TimedEvent : MonoBehaviour
         y = y_pos;
         start_time = start;
         finish_time = finish;
-        Debug.Log(start_time + " " + finish_time);
+        CheckFinished(UpdateTime());
     }
 }

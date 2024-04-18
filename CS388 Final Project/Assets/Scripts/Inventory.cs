@@ -5,14 +5,13 @@ using TMPro;
 
 public class Inventory : MonoBehaviour
 {
-    public enum ResourceType { Wood, Rock, Metal, Dirt, Sand, Seed, Length };
+    public enum ResourceType { Wood, Rock, Metal, Dirt, Sand, Fellas, Length };
 
-    string[] UIText = { "Wood", "Rock", "Metal", "Dirt", "Sand", "Seed" };
+    string[] UIText = { "Wood", "Rock", "Metal", "Dirt", "Sand", "Fellas" };
 
-    int[] inventory = new int[(int)ResourceType.Length];
+    public int[] inventory = new int[(int)ResourceType.Length];
 
-
-    public GameObject[] itemUI;
+    public TMPro.TextMeshProUGUI[] itemUI;
 
     public void LoadInventory()
     {
@@ -27,6 +26,7 @@ public class Inventory : MonoBehaviour
     public void AddResource(ResourceType type, int amount)
     {
         inventory[(int)type] += amount;
+        updateInventory();
     }
 
     public int CheckResourceAmount(ResourceType type)
@@ -62,14 +62,17 @@ public class Inventory : MonoBehaviour
         }
 
         // Success
+        updateInventory();
         return true;
     }
 
     void updateInventory()
     {
-        for(int i = 0; i < (int)ResourceType.Length; i++)
+        for(int i = 0; i < itemUI.Length; i++)
         {
-            itemUI[i].GetComponent<TextMeshPro>().SetText(UIText[i] + ": " + inventory[i]);
+            string str = UIText[i] + ": " + inventory[i];
+            Debug.Log(str);
+            itemUI[i].SetText(str);
         }
     }
 
@@ -77,12 +80,12 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         // Load inventory from the save file
-        LoadInventory();
+        updateInventory();
     }
 
     // Update is called once per frame
     void Update()
     {
-        updateInventory();
+    
     }
 }

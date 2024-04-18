@@ -122,7 +122,6 @@ public class GridEnvironment : MonoBehaviour
                         Spawner.SpawnStructure(x, y, "Tree", 0, grid[x, y].position, true);
                 }
             }
-            Spawner.SpawnEvent(1000, 0, 0);
         }
 
     }
@@ -139,6 +138,9 @@ public class GridEnvironment : MonoBehaviour
             data = formatter.Deserialize(stream) as SaveFile;
             size = data.size;
             seed = data.seed;
+            Inventory inv = GameObject.FindObjectOfType<Inventory>();
+            for (int i = 0; i < data.inventory.Length; i++)
+                inv.inventory[i] = data.inventory[i];
             stream.Close();
         }
         else
