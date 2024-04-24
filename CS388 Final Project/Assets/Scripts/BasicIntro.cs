@@ -225,11 +225,6 @@ public class BasicIntro : MonoBehaviour
 
     public void Building1()
     {
-        // Check if enough resources
-        if(inventory.ConsumeResource(new Inventory.ResourceType[]{ Inventory.ResourceType.Wood}, new int[] { 1 }) == false)
-        {
-            return;
-        }
 
         if(build == true && buildThis == buildingType.House)
         {
@@ -242,13 +237,15 @@ public class BasicIntro : MonoBehaviour
 
     public void BuildABuilding()
     {
-        if(buildThis == buildingType.House)
+        if (buildThis == buildingType.House)
         {
-            Spawner.SpawnStructure(selected_position.x, selected_position.z, "Building1", 0, environment.grid[selected_position.x, selected_position.z].position, false);
-            selected_object = null;
-            selected_position = new Vector3Int(-1, -1, -1);
-            selection_text.text = "";
-            PlantButton.SetActive(false);
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Building1", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 8, 50 }))
+            {
+                selected_object = null;
+                selected_position = new Vector3Int(-1, -1, -1);
+                selection_text.text = "";
+                PlantButton.SetActive(false);
+            }
         }
         build = false;
     }

@@ -15,6 +15,11 @@ public class TimedEvent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        WorldSpawner spawner = FindObjectOfType<WorldSpawner>();
+        SavedObject obj = spawner.FindOccupier(x, y);
+        if (obj)
+            obj.event_happening = this;
+
     }
     const long SECOND_VALUE = 10000000;
     // Update is called once per frame
@@ -43,7 +48,10 @@ public class TimedEvent : MonoBehaviour
             WorldSpawner spawner = FindObjectOfType<WorldSpawner>();
             SavedObject obj = spawner.FindOccupier(x, y);
             if (obj)
+            {
                 obj.event_happened = true;
+                obj.event_happening = null;
+            }
             Destroy(gameObject);
         }
     }

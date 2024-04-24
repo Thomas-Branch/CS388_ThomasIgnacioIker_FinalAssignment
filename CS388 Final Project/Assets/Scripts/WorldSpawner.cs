@@ -11,10 +11,12 @@ public class WorldSpawner : MonoBehaviour
     public bool[,] Occupation;
     GridEnvironment environment = null;
     public bool occupied = false;
+    Inventory inventory;
     // Start is called before the first frame update
 
     void Start()
     {
+        inventory = FindObjectOfType<Inventory>();
     }
 
     // Update is called once per frame
@@ -22,6 +24,58 @@ public class WorldSpawner : MonoBehaviour
     {
         
     }
+
+
+    public bool Construct(int x, int y, string building, long seconds, Inventory.ResourceType[] types, int[] amount)
+    {
+        int StructID = getID(building);
+        int ConstructID = -1;
+        if (StructID >= 0)
+        {
+            SavedObject.Shape shape = structures[StructID].GetComponent<SavedObject>().shape;
+            if (CheckValidOccupation(x, y, shape) == null)
+            {
+                if (building == "Tree")
+                    ConstructID = getID("Sapling");
+                else
+                {
+                    switch (shape)
+                    {
+                        case SavedObject.Shape.Single:
+                            ConstructID = getID("construct1");
+                            break;
+                        case SavedObject.Shape.Plus:
+                            ConstructID = getID("construct2");
+                            break;
+                        case SavedObject.Shape.Square:
+                            ConstructID = getID("construct3");
+                            break;
+                    }
+                }
+            }
+
+            int start = inventory.CheckResourceAmount(Inventory.ResourceType.Fellas);
+            if (ConstructID >= 0 && inventory.ConsumeResource(types, amount))
+            {
+                int fellas_consumed = start - inventory.CheckResourceAmount(Inventory.ResourceType.Fellas);
+                SavedObject obj = SpawnStructure(x, y, ConstructID, StructID, environment.grid[x, y].position, true);
+                SpawnEvent(seconds, x, y);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getID(string name)
+    {
+        for (int i = 0; i < structures.Length; i++)
+        {
+            if (structures[i].GetComponent<SavedObject>().objName == name)
+                return i;
+        }
+        return -1;
+    }
+
 
     const long SECOND_VALUE = 10000000;
     public void SpawnEvent(long seconds, int x_pos, int y_pos)
@@ -112,6 +166,16 @@ public class WorldSpawner : MonoBehaviour
             case SavedObject.Shape.Single:
                 Occupation[obj.x, obj.y] = false;
                 break;
+            case SavedObject.Shape.Square:
+
+                for (int i = obj.x - 1; i <= obj.x + 1; i++)
+                {
+                    for (int j = obj.y - 1; j <= obj.y + 1; j++)
+                    {
+                        Occupation[i, j] = false;
+                    }
+                }
+                break;
         }
         Destroy(obj.gameObject);
     }
@@ -138,12 +202,11 @@ public class WorldSpawner : MonoBehaviour
 
     public SavedObject SpawnStructure(int x, int y, string objName, int extra, Vector3 position, bool loading_saved = false)
     {
-        for(int i = 0; i < structures.Length; i++)
-        {
-            if (structures[i].GetComponent<SavedObject>().objName == objName)
-                return SpawnStructure(x, y, i, extra, position, loading_saved);
-        }
-        return null;
+        int ID = getID(objName);
+        if(ID >= 0)
+            return SpawnStructure(x, y, ID, extra, position, loading_saved);
+        else
+            return null;
     }
 
     public SavedObject SpawnStructure(int x, int y, int ID, int extra, Vector3 position, bool loading_save = false)
@@ -158,6 +221,7 @@ public class WorldSpawner : MonoBehaviour
                 SavedObject data = obj.GetComponent<SavedObject>();
                 data.x = x;
                 data.y = y;
+                data.extra = extra;
                 FillOccupation(data);
             }
             return Occupying;
@@ -168,6 +232,7 @@ public class WorldSpawner : MonoBehaviour
             SavedObject data = obj.GetComponent<SavedObject>();
             data.x = x;
             data.y = y;
+            data.extra = extra;
             FillOccupation(data);
             return null;
         }

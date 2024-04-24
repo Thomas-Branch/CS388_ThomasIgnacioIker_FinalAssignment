@@ -13,6 +13,8 @@ public class SavedObject : MonoBehaviour
     public int ID = 0;
     public int extra = 0;
     public bool event_happened = false;
+    public TimedEvent event_happening = null;
+    public int used_fellas = 0;
     // Start is called before the first frame update
     void Start()
     {
