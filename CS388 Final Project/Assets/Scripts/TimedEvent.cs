@@ -82,4 +82,18 @@ public class TimedEvent : MonoBehaviour
         finish_time = finish;
         CheckFinished(UpdateTime());
     }
+
+    public long GetFinishTime()
+    {
+        return finish_time;
+    }
+
+    public long GetTimePercentLeft()
+    {
+        long finish = (finish_time - start_time) / SECOND_VALUE;
+        long current = (System.DateTime.UtcNow.ToBinary() - start_time) / SECOND_VALUE;
+
+        return current * ((long)100)/finish;
+
+    }
 }

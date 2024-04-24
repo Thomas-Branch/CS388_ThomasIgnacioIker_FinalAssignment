@@ -10,9 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 579351062090767220}
   - component: {fileID: 5437597298214077577}
-  - component: {fileID: 5745822250785469614}
   - component: {fileID: -8467828851587099568}
-  - component: {fileID: 322672683310457097}
   m_Layer: 0
   m_Name: Building1
   m_TagString: Untagged
@@ -60,24 +58,6 @@ MonoBehaviour:
   event_happened: 0
   event_happening: {fileID: 0}
   used_fellas: 8
---- !u!114 &5745822250785469614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1418433199594727245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 193a1a2f88ef75649b05e0c8fc0f8895, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  phase0: {fileID: 6677569308813484022}
-  phases:
-  - {fileID: 3057157167078911272}
-  - {fileID: 4904259354231743990}
-  text: {fileID: 2216222737219044682}
-  timeToBuild: 15
 --- !u!114 &-8467828851587099568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,20 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b896811f1dbad409bbb75d0c17763c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &322672683310457097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1418433199594727245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bce2d09b9b6644d97d343b2a08f0b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obj: {fileID: 5437597298214077577}
-  fella_count: 0
+  worldSpawner: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!1 &2215849470670314959
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class FellaBuildingEventHandler : MonoBehaviour
     {
         inventory = FindObjectOfType<Inventory>();
         worldSpawner = FindObjectOfType<WorldSpawner>();
-        //worldSpawner.SpawnEvent(10, this.gameObject.GetComponent<SavedObject>().x, this.gameObject.GetComponent<SavedObject>().y);
+        //worldSpawner.SpawnEvent(300, this.gameObject.GetComponent<SavedObject>().x, this.gameObject.GetComponent<SavedObject>().y);
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class FellaBuildingEventHandler : MonoBehaviour
     {
         if(canCollect)
         {
-            worldSpawner.SpawnEvent(10, this.gameObject.GetComponent<SavedObject>().x, this.gameObject.GetComponent<SavedObject>().y);
+            worldSpawner.SpawnEvent(300, this.gameObject.GetComponent<SavedObject>().x, this.gameObject.GetComponent<SavedObject>().y);
             inventory.AddResource(Inventory.ResourceType.Fellas, 2);
             this.gameObject.GetComponent<SavedObject>().event_happened = false;
             canCollect = false;
