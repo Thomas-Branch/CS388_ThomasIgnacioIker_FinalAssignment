@@ -18,9 +18,9 @@ public class ConstructLogic : MonoBehaviour
         if (obj.event_happened)
         {
             WorldSpawner spawner = FindObjectOfType<WorldSpawner>();
+            Inventory inv = FindObjectOfType<Inventory>();
             spawner.DestroyStructure(obj);
             spawner.SpawnStructure(obj.x, obj.y, obj.extra, 0, obj.transform.position, true);
-            Inventory inv = FindObjectOfType<Inventory>();
             if (inv)
                 inv.AddResource(Inventory.ResourceType.Fellas, spawner.FindOccupier(obj.x, obj.y).used_fellas);
         }

@@ -212,15 +212,17 @@ public class BasicIntro : MonoBehaviour
             selection_text.text = "";
             ChopButton.SetActive(false);
         }
-
     }
+
     public void Plant()
     {
-        Spawner.SpawnStructure(selected_position.x, selected_position.z, "Tree", 0, environment.grid[selected_position.x, selected_position.z].position, true);
-        selected_object = null;
-        selected_position = new Vector3Int(-1, -1, -1);
-        selection_text.text = "";
-        PlantButton.SetActive(false);
+        if (Spawner.Construct(selected_position.x, selected_position.z, "Tree", 300, new Inventory.ResourceType[] { Inventory.ResourceType.Fellas, Inventory.ResourceType.Seeds }, new int[] { 1, 1 }))
+        {
+            selected_object = null;
+            selected_position = new Vector3Int(-1, -1, -1);
+            selection_text.text = "";
+            PlantButton.SetActive(false);
+        }
     }
 
     public void Building1()

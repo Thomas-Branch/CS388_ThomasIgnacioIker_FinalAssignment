@@ -5,9 +5,9 @@ using TMPro;
 
 public class Inventory : MonoBehaviour
 {
-    public enum ResourceType { Wood, Rock, Metal, Dirt, Sand, Fellas, Length };
+    public enum ResourceType { Wood, Rock, Metal, Dirt, Sand, Fellas, Seeds, Length };
 
-    string[] UIText = { "Wood", "Rock", "Metal", "Dirt", "Sand", "Fellas" };
+    string[] UIText = { "Wood", "Rock", "Metal", "Dirt", "Sand", "Fellas", "Seeds" };
 
     public int[] inventory = new int[(int)ResourceType.Length];
 

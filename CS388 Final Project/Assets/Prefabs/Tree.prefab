@@ -175,6 +175,8 @@ MonoBehaviour:
   ID: 0
   extra: 0
   event_happened: 0
+  event_happening: {fileID: 0}
+  used_fellas: 1
 --- !u!136 &4589667394710907992
 CapsuleCollider:
   m_ObjectHideFlags: 0
