@@ -41,7 +41,7 @@ public class SaveFile
 
         Inventory inv = GameObject.FindObjectOfType<Inventory>();
         inventory = new int[(int)Inventory.ResourceType.Length];
-        for (int i = 0; i < inventory.Length; i++)
+        for (int i = 0; i < inv.inventory.Length; i++)
             inventory[i] = inv.inventory[i];
     }
 }

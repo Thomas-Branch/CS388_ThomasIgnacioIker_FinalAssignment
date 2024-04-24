@@ -22,6 +22,7 @@ public class BasicIntro : MonoBehaviour
     public TextMeshProUGUI selection_text;
     public GameObject PlantButton;
     public GameObject ChopButton;
+    public GameObject CollectButton;
     SavedObject selected_object;
     Vector3Int selected_position;
 
@@ -44,6 +45,7 @@ public class BasicIntro : MonoBehaviour
                 selection_text.text = "";
                 PlantButton.SetActive(false);
                 ChopButton.SetActive(false);
+                CollectButton.SetActive(false);
             }
             environment = FindObjectOfType<GridEnvironment>();
             Spawner = FindObjectOfType<WorldSpawner>();
@@ -142,12 +144,21 @@ public class BasicIntro : MonoBehaviour
                     {
                         PlantButton.SetActive(false);
                         ChopButton.SetActive(false);
+                        CollectButton.SetActive(false);
                         selected_position = Vector3Int.RoundToInt(raycastHit.point);
                         selected_object = Spawner.CheckValidOccupation(selected_position.x, selected_position.z, SavedObject.Shape.Single);
                         if (selected_object != null)
                         {
                             selection_text.text = selected_object.objName + " (" + selected_position.x + "," + selected_position.z + ")";
-                            ChopButton.SetActive(true);
+                            if (selected_object.objName == "Building1")
+                            {
+                                CollectButton.SetActive(true);
+                            }
+                            else
+                            {
+                                ChopButton.SetActive(true);
+                            }
+                            
                         }
                         else
                         {
@@ -222,6 +233,14 @@ public class BasicIntro : MonoBehaviour
             selected_position = new Vector3Int(-1, -1, -1);
             selection_text.text = "";
             PlantButton.SetActive(false);
+        }
+    }
+
+    public void Collect()
+    {
+        if(selected_object.GetComponent<FellaBuildingEventHandler>().Collect())
+        {
+            CollectButton.SetActive(false);
         }
     }
 

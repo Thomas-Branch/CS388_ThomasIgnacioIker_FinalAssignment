@@ -17,6 +17,7 @@ public class MapSelect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.SetInt("Load Existing Seed", 0);
         string path = Application.persistentDataPath + "/map" + MapNum + ".island";
         if (File.Exists(path))
         {
