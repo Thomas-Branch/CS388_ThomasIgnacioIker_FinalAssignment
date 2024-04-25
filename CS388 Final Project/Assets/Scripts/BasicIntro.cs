@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
@@ -210,7 +211,7 @@ public class BasicIntro : MonoBehaviour
     {
         if (!init)
         {
-            if (Input.touchCount == 1)
+            if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             {
                 Touch touch = Input.GetTouch(0);
 
