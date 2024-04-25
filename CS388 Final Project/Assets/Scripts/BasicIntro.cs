@@ -351,7 +351,7 @@ public class BasicIntro : MonoBehaviour
     {
         if (buildThis == buildingType.Building1)
         {
-            if (Spawner.Construct(selected_position.x, selected_position.z, "Building1", 60, new Inventory.ResourceType[] { Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 8, 50 }))
+            if (Spawner.Construct(selected_position.x, selected_position.z, "FellaGeneration", 60, new Inventory.ResourceType[] { Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 8, 50 }))
             {
                 selected_object = null;
                 selected_position = new Vector3Int(-1, -1, -1);
@@ -374,6 +374,39 @@ public class BasicIntro : MonoBehaviour
         if (buildThis == buildingType.Building3)
         {
             if (Spawner.Construct(selected_position.x, selected_position.z, "Building3", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
+            {
+                selected_object = null;
+                selected_position = new Vector3Int(-1, -1, -1);
+                selection_text.text = "";
+                PlantButton.SetActive(false);
+            }
+        }
+
+        if (buildThis == buildingType.Building4)
+        {
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Building4", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
+            {
+                selected_object = null;
+                selected_position = new Vector3Int(-1, -1, -1);
+                selection_text.text = "";
+                PlantButton.SetActive(false);
+            }
+        }
+
+        if (buildThis == buildingType.Building5)
+        {
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Building5", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
+            {
+                selected_object = null;
+                selected_position = new Vector3Int(-1, -1, -1);
+                selection_text.text = "";
+                PlantButton.SetActive(false);
+            }
+        }
+
+        if (buildThis == buildingType.Building6)
+        {
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Building6", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
             {
                 selected_object = null;
                 selected_position = new Vector3Int(-1, -1, -1);

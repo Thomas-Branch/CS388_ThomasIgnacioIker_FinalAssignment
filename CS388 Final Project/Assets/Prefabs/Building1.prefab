@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 2
-  objName: Building1
+  objName: FellaGeneration
   x: 0
   y: 0
   ID: 5

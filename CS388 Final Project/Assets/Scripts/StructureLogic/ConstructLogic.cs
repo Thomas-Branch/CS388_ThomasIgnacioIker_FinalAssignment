@@ -41,6 +41,18 @@ public class ConstructLogic : MonoBehaviour
             {
                 currentAnim = 2;
             }
+            if (obj.extra == 9) // Building4
+            {
+                currentAnim = 3;
+            }
+            if (obj.extra == 10) // Building5
+            {
+                currentAnim = 4;
+            }
+            if (obj.extra == 8) // Building6
+            {
+                currentAnim = 5;
+            }
             animations[currentAnim].SetActive(true);
         }
 
