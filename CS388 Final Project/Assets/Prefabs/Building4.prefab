@@ -879,14 +879,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 2
-  objName: Building4
+  objName: Skyscraper
   x: 0
   y: 0
   ID: 9
   extra: 0
   event_happened: 0
   event_happening: {fileID: 0}
-  used_fellas: 8
+  used_fellas: 20
 --- !u!65 &1532004705820001773
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1180,7 +1180,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784730291890143654}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.06300001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1213,7 +1213,7 @@ Transform:
   - {fileID: 8118202701869637920}
   m_Father: {fileID: 579351062090767220}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1880629513332909969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1984,7 +1984,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3057157167078911272}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.063, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2017,7 +2017,7 @@ Transform:
   - {fileID: 6599448257257536887}
   m_Father: {fileID: 579351062090767220}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &3200618890812665309
 GameObject:
   m_ObjectHideFlags: 0
@@ -3203,7 +3203,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4904259354231743990}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.06300001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3226,7 +3226,7 @@ Transform:
   - {fileID: 7740719302742587950}
   m_Father: {fileID: 579351062090767220}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &4973721750835561290
 GameObject:
   m_ObjectHideFlags: 0

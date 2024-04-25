@@ -297,14 +297,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 2
-  objName: Building5
+  objName: Big Pool
   x: 0
   y: 0
   ID: 10
   extra: 0
   event_happened: 0
   event_happening: {fileID: 0}
-  used_fellas: 8
+  used_fellas: 12
 --- !u!65 &6583168494692319222
 BoxCollider:
   m_ObjectHideFlags: 0

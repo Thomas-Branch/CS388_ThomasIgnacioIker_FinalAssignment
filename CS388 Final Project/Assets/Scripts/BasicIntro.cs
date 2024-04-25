@@ -160,7 +160,7 @@ public class BasicIntro : MonoBehaviour
                         if (selected_object != null)
                         {
                             selection_text.text = selected_object.objName + " (" + selected_position.x + "," + selected_position.z + ")";
-                            if (selected_object.objName == "FellaGenerator")
+                            if (selected_object.objName == "Fella Generator")
                             {
                                 CollectButton.SetActive(true);
                             }
@@ -211,7 +211,7 @@ public class BasicIntro : MonoBehaviour
     {
         if (!init)
         {
-            if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            if (Input.touchCount == 1 && (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) || selection_text == null))
             {
                 Touch touch = Input.GetTouch(0);
 
@@ -351,7 +351,7 @@ public class BasicIntro : MonoBehaviour
     {
         if (buildThis == buildingType.Building1)
         {
-            if (Spawner.Construct(selected_position.x, selected_position.z, "FellaGenerator", 60, new Inventory.ResourceType[] { Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 8, 50 }))
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Fella Generator", 120, new Inventory.ResourceType[] { Inventory.ResourceType.Fellas, Inventory.ResourceType.Rock, Inventory.ResourceType.Metal }, new int[] { 6, 25, 5 }))
             {
                 selected_object = null;
                 selected_position = new Vector3Int(-1, -1, -1);
@@ -362,7 +362,7 @@ public class BasicIntro : MonoBehaviour
 
         if (buildThis == buildingType.Building2)
         {
-            if (Spawner.Construct(selected_position.x, selected_position.z, "Building2", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Apartments", 300, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood, Inventory.ResourceType.Rock }, new int[] { 8, 15, 15 }))
             {
                 selected_object = null;
                 selected_position = new Vector3Int(-1, -1, -1);
@@ -373,7 +373,7 @@ public class BasicIntro : MonoBehaviour
 
         if (buildThis == buildingType.Building3)
         {
-            if (Spawner.Construct(selected_position.x, selected_position.z, "Building3", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Fancy House", 420, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Sand, Inventory.ResourceType.Metal}, new int[] { 10, 10, 10 }))
             {
                 selected_object = null;
                 selected_position = new Vector3Int(-1, -1, -1);
@@ -384,7 +384,7 @@ public class BasicIntro : MonoBehaviour
 
         if (buildThis == buildingType.Building4)
         {
-            if (Spawner.Construct(selected_position.x, selected_position.z, "Building4", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Skyscraper", 600, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Rock, Inventory.ResourceType.Sand, Inventory.ResourceType.Metal }, new int[] { 20, 30, 30, 10 }))
             {
                 selected_object = null;
                 selected_position = new Vector3Int(-1, -1, -1);
@@ -395,7 +395,7 @@ public class BasicIntro : MonoBehaviour
 
         if (buildThis == buildingType.Building5)
         {
-            if (Spawner.Construct(selected_position.x, selected_position.z, "Building5", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Big Pool", 300, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Dirt, Inventory.ResourceType.Rock, Inventory.ResourceType.Metal }, new int[] { 12, 10, 15, 5 }))
             {
                 selected_object = null;
                 selected_position = new Vector3Int(-1, -1, -1);
@@ -406,7 +406,7 @@ public class BasicIntro : MonoBehaviour
 
         if (buildThis == buildingType.Building6)
         {
-            if (Spawner.Construct(selected_position.x, selected_position.z, "Building6", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Small House", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 4, 20 }))
             {
                 selected_object = null;
                 selected_position = new Vector3Int(-1, -1, -1);
@@ -448,6 +448,12 @@ public class BasicIntro : MonoBehaviour
     private void OnApplicationQuit()
     {
         if(selection_text)
+            Save(false);
+    }
+
+    private void OnApplicationFocus()
+    {
+        if (selection_text)
             Save(false);
     }
 

@@ -16,10 +16,7 @@ public class ConstructLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < animations.Length; i++)
-        {
-            animations[i].SetActive(false);
-        }
+        
     }
 
     // Update is called once per frame
@@ -27,6 +24,11 @@ public class ConstructLogic : MonoBehaviour
     {
         if(firstFrame)
         {
+            for (int i = 0; i < animations.Length; i++)
+            {
+                animations[i].SetActive(false);
+            }
+
             firstFrame = false;
 
             if (obj.extra == 5) // Building1 (FellaGenerator)
@@ -49,7 +51,7 @@ public class ConstructLogic : MonoBehaviour
             {
                 currentAnim = 4;
             }
-            if (obj.extra == 8) // Building6
+            if (obj.extra == 11) // Building6
             {
                 currentAnim = 5;
             }

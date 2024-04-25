@@ -237,14 +237,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 2
-  objName: FellaGenerator
+  objName: Fella Generator
   x: 0
   y: 0
   ID: 5
   extra: 0
   event_happened: 0
   event_happening: {fileID: 0}
-  used_fellas: 8
+  used_fellas: 6
 --- !u!65 &8880069847644906672
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -278,8 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b896811f1dbad409bbb75d0c17763c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldSpawner: {fileID: 0}
-  inventory: {fileID: 0}
 --- !u!1 &1609864967960985573
 GameObject:
   m_ObjectHideFlags: 0
