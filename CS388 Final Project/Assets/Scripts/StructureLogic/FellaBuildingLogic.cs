@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class FellaBuildingEventHandler : MonoBehaviour
+public class FellaBuildingLogic : MonoBehaviour
 {
-    public WorldSpawner worldSpawner;
-    public Inventory inventory;
+    WorldSpawner worldSpawner;
+    Inventory inventory;
     bool canCollect = true;
     TimedEvent tevent;
     // Start is called before the first frame update
@@ -14,7 +14,6 @@ public class FellaBuildingEventHandler : MonoBehaviour
     {
         inventory = FindObjectOfType<Inventory>();
         worldSpawner = FindObjectOfType<WorldSpawner>();
-        //worldSpawner.SpawnEvent(300, this.gameObject.GetComponent<SavedObject>().x, this.gameObject.GetComponent<SavedObject>().y);
     }
 
     // Update is called once per frame

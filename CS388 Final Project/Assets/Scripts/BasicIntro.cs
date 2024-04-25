@@ -160,7 +160,7 @@ public class BasicIntro : MonoBehaviour
                         if (selected_object != null)
                         {
                             selection_text.text = selected_object.objName + " (" + selected_position.x + "," + selected_position.z + ")";
-                            if (selected_object.objName == "Building1")
+                            if (selected_object.objName == "FellaGenerator")
                             {
                                 CollectButton.SetActive(true);
                             }
@@ -286,7 +286,7 @@ public class BasicIntro : MonoBehaviour
 
     public void Collect()
     {
-        if(selected_object.GetComponent<FellaBuildingEventHandler>().Collect())
+        if(selected_object.GetComponent<FellaBuildingLogic>().Collect())
         {
             CollectButton.SetActive(false);
         }
@@ -351,7 +351,7 @@ public class BasicIntro : MonoBehaviour
     {
         if (buildThis == buildingType.Building1)
         {
-            if (Spawner.Construct(selected_position.x, selected_position.z, "FellaGeneration", 60, new Inventory.ResourceType[] { Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 8, 50 }))
+            if (Spawner.Construct(selected_position.x, selected_position.z, "FellaGenerator", 60, new Inventory.ResourceType[] { Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 8, 50 }))
             {
                 selected_object = null;
                 selected_position = new Vector3Int(-1, -1, -1);
