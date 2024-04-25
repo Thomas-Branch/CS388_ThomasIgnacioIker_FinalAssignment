@@ -8,45 +8,48 @@ public class ConstructLogic : MonoBehaviour
     public SavedObject obj;
     public int fella_count = 0;
 
-    public GameObject phase0;
-    public GameObject[] phases;
+    public GameObject[] animations;
+    bool firstFrame = true;
+
+    int currentAnim;
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < phases.Length; i++)
+        for(int i = 0; i < animations.Length; i++)
         {
-            phases[i].SetActive(false);
+            animations[i].SetActive(false);
         }
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        TimedEvent e;
-        if (e = obj.event_happening)
+        if(firstFrame)
         {
-            //if (e.GetTimePercentLeft() > (long)100)
-            //{
-            //    for (int i = 0; i < phases.Length; i++)
-            //    {
-            //        phases[i].SetActive(true);
-            //    }
-            //    phase0.SetActive(false);
-            //    return;
-            //}
-            Debug.Log(e.GetTimePercentLeft());
-            for (int i = 0; i < phases.Length; i++)
-            {
-                if (e.GetTimePercentLeft() > ((long)100) / phases.Length)
-                {
-                    phases[i].SetActive(true);
-                }
+            firstFrame = false;
 
+            if (obj.extra == 5) // Building1 (FellaGenerator)
+            {
+                currentAnim = 0;
             }
+            if (obj.extra == 7) // Building2
+            {
+                currentAnim = 1;
+            }
+            if (obj.extra == 8) // Building3
+            {
+                currentAnim = 2;
+            }
+            animations[currentAnim].SetActive(true);
         }
+
+        TimedEvent e;
+        if(e = obj.event_happening)
+        {
+            animations[currentAnim].GetComponent<BuildingBeingBuilt>().UpdateTime(e.GetTimePercentLeft());
+        }
+
         if (obj.event_happened)
         {
             WorldSpawner spawner = FindObjectOfType<WorldSpawner>();

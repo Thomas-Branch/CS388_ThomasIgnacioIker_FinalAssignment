@@ -30,7 +30,7 @@ public class BasicIntro : MonoBehaviour
 
     // For Buildings
     bool build = false;
-    enum buildingType { House }
+    public enum buildingType {Null, Building1, Building2, Building3, Building4, Building5, Building6}
     buildingType buildThis;
 
     // Start is called before the first frame update
@@ -291,23 +291,88 @@ public class BasicIntro : MonoBehaviour
         }
     }
 
-    public void Building1()
+    public void Building(int BuildingID)
     {
+        buildingType type = buildingType.Null;
 
-        if(build == true && buildThis == buildingType.House)
+        if(BuildingID == 1)
+            type = buildingType.Building1;
+        if(BuildingID == 2)
+            type = buildingType.Building2;
+        if(BuildingID == 3)
+            type = buildingType.Building3;
+        if(BuildingID == 4)
+            type = buildingType.Building4;
+        if(BuildingID == 5)
+            type = buildingType.Building5;
+        if(BuildingID == 6)
+            type = buildingType.Building6;
+
+        if (build == true)// && buildThis == type)
         {
             build = false;
+            return;
         }
 
-        build = true;
-        buildThis = buildingType.House;
+        if(type == buildingType.Building1)
+        {
+            build = true;
+            buildThis = buildingType.Building1;
+        }
+        if(type == buildingType.Building2)
+        {
+            build = true;
+            buildThis = buildingType.Building2;
+        }
+        if(type == buildingType.Building3)
+        {
+            build = true;
+            buildThis = buildingType.Building3;
+        }
+        if(type == buildingType.Building4)
+        {
+            build = true;
+            buildThis = buildingType.Building4;
+        }
+        if(type == buildingType.Building5)
+        {
+            build = true;
+            buildThis = buildingType.Building5;
+        }
+        if(type == buildingType.Building6)
+        {
+            build = true;
+            buildThis = buildingType.Building6;
+        }
     }
 
     public void BuildABuilding()
     {
-        if (buildThis == buildingType.House)
+        if (buildThis == buildingType.Building1)
         {
-            if (Spawner.Construct(selected_position.x, selected_position.z, "Building1", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 8, 50 }))
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Building1", 60, new Inventory.ResourceType[] { Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 8, 50 }))
+            {
+                selected_object = null;
+                selected_position = new Vector3Int(-1, -1, -1);
+                selection_text.text = "";
+                PlantButton.SetActive(false);
+            }
+        }
+
+        if (buildThis == buildingType.Building2)
+        {
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Building2", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
+            {
+                selected_object = null;
+                selected_position = new Vector3Int(-1, -1, -1);
+                selection_text.text = "";
+                PlantButton.SetActive(false);
+            }
+        }
+
+        if (buildThis == buildingType.Building3)
+        {
+            if (Spawner.Construct(selected_position.x, selected_position.z, "Building3", 60, new Inventory.ResourceType[] {Inventory.ResourceType.Fellas, Inventory.ResourceType.Wood }, new int[] { 1, 1 }))
             {
                 selected_object = null;
                 selected_position = new Vector3Int(-1, -1, -1);
