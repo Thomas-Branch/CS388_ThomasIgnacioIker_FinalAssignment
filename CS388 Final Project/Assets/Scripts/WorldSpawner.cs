@@ -99,6 +99,20 @@ public class WorldSpawner : MonoBehaviour
         Occupation = new bool[size, size];
     }
 
+    public TimedEvent CheckEventOccupation(int x, int y)
+    {
+        TimedEvent[] events = GameObject.FindObjectsOfType<TimedEvent>();
+        for(int i = 0; i < events.Length; i++)
+        {
+            if (events[i].x == x && events[i].y == y)
+            {
+                Debug.Log("Occupied");
+                return events[i];
+            }
+        }
+        return null;
+    }
+
     public SavedObject FindOccupier(int x, int y)
     {
         occupied = true;

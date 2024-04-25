@@ -18,6 +18,8 @@ public class GridEnvironment : MonoBehaviour
     SaveFile data;
     WorldSpawner Spawner;
 
+    public int RockCount = 0;
+
     float GetNoise(float x, float y, int seed_value, float scale)
     {
         float noise = Mathf.PerlinNoise(x * scale + seed_value, y * scale + seed_value);
@@ -99,14 +101,36 @@ public class GridEnvironment : MonoBehaviour
         Instantiate(Environment_Spawns[0], grid[Spawn_Location[0], Spawn_Location[1]].position, Quaternion.identity, transform);
     }
 
+    void GenerateNewRocks(int amount)
+    {
+        int attempts = amount * 10;
+        int placed = 0;
+        while(placed != amount && attempts > 0)
+        {
+            int x = Random.Range(0, size - 1);
+            int y = Random.Range(0, size - 1);
+            if(grid[x,y].tile_type != (char)Cell.Type.Water)
+            {
+                SavedObject occupier = Spawner.SpawnStructure(x, y, "Rock", 0, grid[x, y].position);
+                if (occupier == null)
+                    placed++;
+            }
+            attempts--;
+        }
+    }
+
     void GenerateNewDecorations()
     {
+        int space = size * size;
+
         if (PlayerPrefs.GetInt("Load Existing Seed") > 0)
         {
             for (int i = 0; i < data.world_data.Length; i = i + 4)
                 Spawner.SpawnStructure(data.world_data[i], data.world_data[i + 1], data.world_data[i + 2], data.world_data[i + 3], grid[data.world_data[i], data.world_data[i + 1]].position, true);
             for (int i = 0; i < data.event_positions.Length; i = i + 2)
                 Spawner.SpawnEvent(data.event_times[i], data.event_times[i + 1], data.event_positions[i], data.event_positions[i + 1]);
+            if (RockCount < (space/2500) * 2)
+                GenerateNewRocks(space/2500);
         }
         else
         {
@@ -122,6 +146,7 @@ public class GridEnvironment : MonoBehaviour
                         Spawner.SpawnStructure(x, y, "Tree", 0, grid[x, y].position, true);
                 }
             }
+            GenerateNewRocks(space / 500);
         }
 
     }

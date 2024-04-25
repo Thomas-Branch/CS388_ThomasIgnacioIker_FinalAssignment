@@ -52,6 +52,21 @@ public class TimedEvent : MonoBehaviour
                 obj.event_happened = true;
                 obj.event_happening = null;
             }
+            else
+            {
+                GridEnvironment environment = FindObjectOfType<GridEnvironment>();
+                Inventory inv = FindObjectOfType<Inventory>();
+                switch ((Cell.Type)environment.grid[x,y].tile_type)
+                {
+                    case Cell.Type.Grass:
+                        inv.AddResource(Inventory.ResourceType.Dirt, Random.Range(3, 6));
+                        break;
+                    case Cell.Type.Sand:
+                        inv.AddResource(Inventory.ResourceType.Sand, Random.Range(3, 6));
+                        break;
+                }
+                inv.AddResource(Inventory.ResourceType.Fellas, 2);
+            }
             Destroy(gameObject);
         }
     }
