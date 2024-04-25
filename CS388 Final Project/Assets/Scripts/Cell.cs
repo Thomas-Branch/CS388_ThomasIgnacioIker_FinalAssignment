@@ -21,7 +21,7 @@ public class Cell
             case Type.Grass:
                 return "Grass";
             case Type.Sand:
-                return "Sand";
+                return "Beach";
         }
         return "Unknown";
     }

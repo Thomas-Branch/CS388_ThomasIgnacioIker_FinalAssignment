@@ -22,6 +22,8 @@ public class BasicIntro : MonoBehaviour
     public TextMeshProUGUI selection_text;
     public GameObject PlantButton;
     public GameObject ChopButton;
+    public GameObject MineButton;
+    public GameObject DigButton;
     public GameObject CollectButton;
     SavedObject selected_object;
     Vector3Int selected_position;
@@ -44,7 +46,9 @@ public class BasicIntro : MonoBehaviour
             {
                 selection_text.text = "";
                 PlantButton.SetActive(false);
+                DigButton.SetActive(false);
                 ChopButton.SetActive(false);
+                MineButton.SetActive(false);
                 CollectButton.SetActive(false);
             }
             environment = FindObjectOfType<GridEnvironment>();
@@ -143,7 +147,9 @@ public class BasicIntro : MonoBehaviour
                     if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f))
                     {
                         PlantButton.SetActive(false);
+                        DigButton.SetActive(false);
                         ChopButton.SetActive(false);
+                        MineButton.SetActive(false);
                         CollectButton.SetActive(false);
                         selected_position = Vector3Int.RoundToInt(raycastHit.point);
                         selected_object = Spawner.CheckValidOccupation(selected_position.x, selected_position.z, SavedObject.Shape.Single);
@@ -154,17 +160,29 @@ public class BasicIntro : MonoBehaviour
                             {
                                 CollectButton.SetActive(true);
                             }
-                            else
+                            else if(selected_object.objName == "Tree")
                             {
                                 ChopButton.SetActive(true);
+                            }
+                            else if(selected_object.objName == "Rock")
+                            {
+                                MineButton.SetActive(true);
                             }
                             
                         }
                         else
                         {
-                            selection_text.text = environment.grid[selected_position.x, selected_position.z].GetName() + " (" + selected_position.x + "," + selected_position.z + ")";
-                            if (environment.grid[selected_position.x, selected_position.z].GetName() == "Grass")
+                            string name = environment.grid[selected_position.x, selected_position.z].GetName();
+                            selection_text.text = name + " (" + selected_position.x + "," + selected_position.z + ")";
+                            if (name == "Grass")
+                            {
                                 PlantButton.SetActive(true);
+                                DigButton.SetActive(true);
+                            }
+                            else if(name == "Beach")
+                            {
+                                DigButton.SetActive(true);
+                            }
                         }
 
                         // For buildings
@@ -214,7 +232,7 @@ public class BasicIntro : MonoBehaviour
 
     public void Chop()
     {
-        if (inventory.CheckResourceAmount(Inventory.ResourceType.Fellas) >= 2)
+        if (inventory.CheckResourceAmount(Inventory.ResourceType.Fellas) >= 2 && Spawner.CheckEventOccupation(selected_position.x, selected_position.z) == null)
         {
             inventory.AddResource(Inventory.ResourceType.Fellas, -2);
             Spawner.SpawnEvent(30, selected_position.x, selected_position.z);
@@ -222,6 +240,32 @@ public class BasicIntro : MonoBehaviour
             selected_position = new Vector3Int(-1, -1, -1);
             selection_text.text = "";
             ChopButton.SetActive(false);
+        }
+    }
+
+    public void Mine()
+    {
+        if (inventory.CheckResourceAmount(Inventory.ResourceType.Fellas) >= 3 && Spawner.CheckEventOccupation(selected_position.x, selected_position.z) == null)
+        {
+            inventory.AddResource(Inventory.ResourceType.Fellas, -3);
+            Spawner.SpawnEvent(120, selected_position.x, selected_position.z);
+            selected_object = null;
+            selected_position = new Vector3Int(-1, -1, -1);
+            selection_text.text = "";
+            MineButton.SetActive(false);
+        }
+    }
+
+    public void Dig()
+    {
+        if (inventory.CheckResourceAmount(Inventory.ResourceType.Fellas) >= 2 && Spawner.CheckEventOccupation(selected_position.x, selected_position.z) == null)
+        {
+            inventory.AddResource(Inventory.ResourceType.Fellas, -2);
+            Spawner.SpawnEvent(180, selected_position.x, selected_position.z);
+            selected_object = null;
+            selected_position = new Vector3Int(-1, -1, -1);
+            selection_text.text = "";
+            DigButton.SetActive(false);
         }
     }
 
