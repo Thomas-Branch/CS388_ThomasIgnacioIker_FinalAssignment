@@ -39,7 +39,10 @@ public class BasicIntro : MonoBehaviour
         swipeSize = new Vector2(Screen.width, Screen.height);
 
         if (init)
+        {
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
             LoadScene(1);
+        }
         else
         {
             if (selection_text)
@@ -78,7 +81,7 @@ public class BasicIntro : MonoBehaviour
             case TouchPhase.Moved:
                 Vector2 distance = new Vector2((touch.position.x - StartPos.x) / swipeSize.x, (touch.position.y - StartPos.y) / swipeSize.y);
                 transform.eulerAngles = new Vector3(startRot.x, startRot.y + distance.x * 180.0f, startRot.z);
-                angle = new Vector3(startAngle.x, startAngle.y - distance.y * 100.0f, startAngle.z);
+                angle = new Vector3(startAngle.x, Mathf.Max(2,startAngle.y - distance.y * 100.0f), startAngle.z);
                 break;
         }
     }
@@ -117,7 +120,7 @@ public class BasicIntro : MonoBehaviour
             case TouchPhase.Moved:
                 Vector2 new_touch_dist = new Vector2((touch1.position.x - touch2.position.x) / swipeSize.x, (touch1.position.y - touch2.position.y) / swipeSize.y);
                 float difference = new_touch_dist.magnitude - StartTouchDist.magnitude;
-                distance = StartDist - 0.5f * difference;
+                distance = Mathf.Max(0.1f,StartDist - 0.5f * difference);
                 break;
         }
         switch(touch1.phase)
@@ -125,7 +128,7 @@ public class BasicIntro : MonoBehaviour
             case TouchPhase.Moved:
                 Vector2 new_touch_dist = new Vector2((touch1.position.x - touch2.position.x) / swipeSize.x, (touch1.position.y - touch2.position.y) / swipeSize.y);
                 float difference = new_touch_dist.magnitude - StartTouchDist.magnitude;
-                distance = StartDist - 0.5f * difference;
+                distance = Mathf.Max(0.1f, StartDist - 0.5f * difference);
                 break;
         }
     }
@@ -341,6 +344,12 @@ public class BasicIntro : MonoBehaviour
     {
         Save(false);
         LoadScene(1);
+    }
+
+    private void OnApplicationQuit()
+    {
+        if(selection_text)
+            Save(false);
     }
 
     public void Save(bool and_load)
