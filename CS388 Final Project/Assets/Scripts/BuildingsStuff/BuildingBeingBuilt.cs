@@ -8,16 +8,14 @@ public class BuildingBeingBuilt : MonoBehaviour
 {
     public GameObject phase0;
     public GameObject[] phases;
-    public GameObject text;
-    public float timeToBuild;
-    float t;
+    long t;
     bool built = false;
 
     // Start is called before the first frame update
     void Start()
     {
         t = 0;
-        for(int i = 0; i < phases.Length;i++)
+        for (int i = 0; i < phases.Length; i++)
         {
             phases[i].SetActive(false);
         }
@@ -26,7 +24,7 @@ public class BuildingBeingBuilt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!built)
+        if (!built)
         {
             Build();
         }
@@ -34,29 +32,30 @@ public class BuildingBeingBuilt : MonoBehaviour
 
     void Build()
     {
-        t += Time.deltaTime;
-        if (t > timeToBuild)
+        Debug.Log(t);
+        if (t > 100)
         {
             for (int i = 0; i < phases.Length; i++)
             {
                 phases[i].SetActive(true);
             }
             phase0.SetActive(false);
-            text.SetActive(false);
             built = true;
             return;
         }
 
         for (int i = 0; i < phases.Length; i++)
         {
-            if (t > timeToBuild * (i + 1) / phases.Length)
+            if (t > ((long)100) * (i + 1) / phases.Length)
             {
                 phases[i].SetActive(true);
             }
 
         }
+    }
 
-
-        text.GetComponent<TextMeshPro>().SetText(((int)(timeToBuild - t)).ToString());
+    public void UpdateTime(long time)
+    {
+        t = time;
     }
 }
